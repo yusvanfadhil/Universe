@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Universe For You 🌌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Stars Container -->
+  <div id="stars-container"></div>
+
+  <!-- Shooting Stars -->
+  <div id="shooting-stars">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div id="particles-container"></div>
+
+  <!-- ======================== -->
+  <!-- SECTION 1: HERO         -->
+  <!-- ======================== -->
+  <section id="hero" class="section">
+    <div class="hero-content">
+      <div class="galaxy-visual">
+        <div class="planet-main">
+          <div class="planet-ring"></div>
+          <div class="planet-glow"></div>
+        </div>
+        <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+        <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+        <div class="orbit orbit-3"><div class="orbit-dot"></div></div>
+      </div>
+
+      <h1 class="hero-title fade-in">A Little Universe<br><span class="title-accent">For You</span></h1>
+
+      <p class="hero-text fade-in delay-1">
+        Di antara miliaran orang di dunia ini,<br>
+        entah bagaimana semesta mempertemukan aku dengan kamu.
+      </p>
+
+      <p class="hero-subtitle fade-in delay-2">
+        Dan sejak saat itu, dunia kecilku terasa sedikit lebih indah.
+      </p>
+
+      <button id="enter-btn" class="glow-btn fade-in delay-3">
+        Enter My Universe ✨
+      </button>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- SECTION 2: STAR JOURNEY -->
+  <!-- ======================== -->
+  <section id="journey" class="section">
+    <div class="section-inner">
+      <h2 class="section-title fade-in">Star Journey ⭐</h2>
+      <p class="section-subtitle fade-in">Setiap langkah membawa kita lebih dekat</p>
+
+      <div class="timeline">
+        <div class="timeline-line"></div>
+
+        <div class="timeline-card fade-in">
+          <div class="card-planet">
+            <div class="mini-planet" style="--planet-color: #e8b4f8; --planet-size: 50px;"></div>
+          </div>
+          <div class="card-content glass-card">
+            <span class="chapter-label">Chapter 01</span>
+            <h3 class="card-title">The Beginning</h3>
+            <p class="card-text">Awalnya aku tidak pernah berpikir seseorang sepertimu akan menjadi seseorang yang begitu berarti.</p>
+          </div>
+        </div>
+
+        <div class="timeline-card fade-in right">
+          <div class="card-planet">
+            <div class="mini-planet" style="--planet-color: #b388ff; --planet-size: 44px;"></div>
+          </div>
+          <div class="card-content glass-card">
+            <span class="chapter-label">Chapter 02</span>
+            <h3 class="card-title">The Moment</h3>
+            <p class="card-text">Ada sesuatu tentangmu yang membuatku nyaman. Cara kamu tersenyum, berbicara, dan membuat hari biasa terasa berbeda.</p>
+          </div>
+        </div>
+
+        <div class="timeline-card fade-in">
+          <div class="card-planet">
+            <div class="mini-planet" style="--planet-color: #82b1ff; --planet-size: 40px;"></div>
+          </div>
+          <div class="card-content glass-card">
+            <span class="chapter-label">Chapter 03</span>
+            <h3 class="card-title">The Reason</h3>
+            <p class="card-text">Tanpa sadar aku mulai menunggu pesanmu dan mencari tahu bagaimana harimu berjalan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- SECTION 3: REASONS I LIKE YOU -->
+  <!-- ============================== -->
+  <section id="reasons" class="section">
+    <div class="section-inner">
+      <h2 class="section-title fade-in">The Reason I Like You 🌙</h2>
+      <p class="section-subtitle fade-in">Klik bintang-bintang ini untuk menemukan alasan ku</p>
+
+      <div class="stars-field fade-in">
+        <div class="reason-star" data-reason="Aku suka caramu membuat orang lain merasa dihargai." style="--sx: 15%; --sy: 20%; --sd: 0s;">
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="reason-star" data-reason="Aku suka bagaimana hal kecil darimu bisa membuat hariku lebih baik." style="--sx: 50%; --sy: 10%; --sd: 0.5s;">
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="reason-star" data-reason="Aku suka kamu bukan karena kamu sempurna, tapi karena menjadi dirimu sendiri sudah cukup membuatku kagum." style="--sx: 82%; --sy: 22%; --sd: 1s;">
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="reason-star" data-reason="Caramu tersenyum bisa membuatku lupa sejenak tentang semua hal yang membebani pikiranku." style="--sx: 25%; --sy: 55%; --sd: 1.5s;">
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="reason-star" data-reason="Kamu punya cara unik untuk membuat dunia terasa lebih lembut dan penuh harapan." style="--sx: 68%; --sy: 50%; --sd: 2s;">
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="reason-star" data-reason="Kehadiranmu seperti bintang — kadar tak terlihat, tapi selalu ada dan membuatku tenang." style="--sx: 40%; --sy: 75%; --sd: 0.3s;">
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="reason-star" data-reason="Aku menyukai caramu mendengarkan, benar-benar mendengarkan, tanpa menghakimi." style="--sx: 75%; --sy: 78%; --sd: 0.8s;">
+          <span class="star-icon">⭐</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reason Modal -->
+  <div id="reason-modal" class="modal-overlay">
+    <div class="modal-content glass-card">
+      <div class="modal-star">⭐</div>
+      <p id="modal-text" class="modal-text"></p>
+      <button id="modal-close" class="glow-btn small">Tutup ✨</button>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SECTION 4: MY FAVORITE PLACE -->
+  <!-- ============================== -->
+  <section id="favorite" class="section">
+    <div class="section-inner">
+      <h2 class="section-title fade-in">My Favorite Place 🌎</h2>
+
+      <div class="favorite-visual fade-in">
+        <div class="earth-container">
+          <div class="earth"></div>
+          <div class="earth-glow"></div>
+          <div class="earth-atmosphere"></div>
+        </div>
+      </div>
+
+      <div class="favorite-text fade-in">
+        <p class="favorite-p">Orang-orang punya tempat favorit berupa kota, pantai, atau tempat indah.</p>
+        <p class="favorite-p">Tapi aku menemukan tempat favoritku dalam bentuk seseorang.</p>
+        <p class="favorite-p highlight">Dan tempat itu adalah ketika aku merasa nyaman berada di dekatmu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- SECTION 5: LOVE LETTER -->
+  <!-- ======================== -->
+  <section id="letter" class="section">
+    <div class="section-inner">
+      <h2 class="section-title fade-in">Love Letter 💌</h2>
+
+      <div class="envelope-container fade-in">
+        <div id="envelope" class="envelope">
+          <div class="envelope-body">
+            <div class="envelope-flap" id="envelope-flap"></div>
+            <div class="envelope-paper" id="envelope-paper">
+              <div class="letter-content">
+                <p>Aku tidak tahu kapan tepatnya semuanya berubah.</p>
+                <p>Awalnya aku hanya ingin mengenalmu.</p>
+                <p>Lalu perlahan aku mulai peduli dengan hal-hal kecil tentangmu.</p>
+                <p class="letter-em">Cara kamu tersenyum.</p>
+                <p class="letter-em">Cara kamu bercerita.</p>
+                <p class="letter-em">Cara kamu membuat dunia terasa lebih ringan.</p>
+                <p>Aku tidak tahu apakah aku bisa menjadi seseorang yang sempurna untukmu.</p>
+                <p class="letter-strong">Tapi aku tahu, aku ingin menjadi seseorang yang selalu berusaha membuatmu tersenyum.</p>
+              </div>
+            </div>
+            <div class="envelope-front"></div>
+          </div>
+        </div>
+
+        <button id="open-letter-btn" class="glow-btn">Open My Letter 💌</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== -->
+  <!-- SECTION 6: FINAL QUESTION -->
+  <!-- ========================== -->
+  <section id="final" class="section">
+    <div class="section-inner">
+      <div class="final-galaxy"></div>
+
+      <div class="final-content fade-in" id="final-question">
+        <p class="final-pre">Jadi...</p>
+        <p class="final-pre">Aku ingin bertanya sesuatu.</p>
+        <h2 class="final-main">Maukah kamu menjadi seseorang yang aku perjuangkan?</h2>
+
+        <div class="final-buttons">
+          <button id="btn-yes" class="glow-btn yes-btn">❤️ Yes</button>
+          <button id="btn-time" class="glow-btn time-btn">🌸 I Need Time</button>
+        </div>
+      </div>
+
+      <div class="final-response fade-in" id="final-yes-response">
+        <div class="response-hearts"></div>
+        <h2 class="response-title">Thank you for choosing me.</h2>
+        <p class="response-text">I promise to protect this little universe we created together.</p>
+        <p class="email-status" id="email-status-yes" aria-live="polite"></p>
+        <div class="response-stars"></div>
+      </div>
+
+      <div class="final-response fade-in" id="final-time-response">
+        <h2 class="response-title gentle">Take all the time you need.</h2>
+        <p class="response-text">My feelings will still be here.</p>
+        <p class="email-status" id="email-status-time" aria-live="polite"></p>
+        <div class="floating-hearts"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
