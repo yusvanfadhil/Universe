@@ -143,9 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailStatusTime = document.getElementById('email-status-time');
 
   const emailConfig = {
-    publicKey: 'ISI_PUBLIC_KEY_EMAILJS',
-    serviceId: 'ISI_SERVICE_ID_EMAILJS',
-    templateId: 'ISI_TEMPLATE_ID_EMAILJS',
+    publicKey: 'GmS9zaxop-MCHuCoX',
+    serviceId: 'service_shfweqg',
+    templateId: 'template_6idvm8r',
     toEmail: 'yusvanysv@gmail.com',
   };
 
