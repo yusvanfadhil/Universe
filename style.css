@@ -773,8 +773,8 @@ h1, h2, h3 {
 
 .envelope {
   perspective: 800px;
-  width: 320px;
-  height: 220px;
+  width: min(92vw, 520px);
+  height: 360px;
 }
 
 .envelope-body {
@@ -826,23 +826,40 @@ h1, h2, h3 {
   bottom: 10%;
   left: 5%;
   width: 90%;
-  height: 75%;
+  height: 86%;
   background: rgba(15, 5, 30, 0.95);
   border: 1px solid rgba(201, 160, 220, 0.1);
   border-radius: 8px;
-  padding: 24px 20px;
-  overflow-y: auto;
+  padding: 34px 34px;
+  overflow-y: hidden;
+  overscroll-behavior: contain;
+  scrollbar-color: rgba(232, 180, 248, 0.45) rgba(255, 255, 255, 0.05);
+  scrollbar-width: thin;
   z-index: 2;
   transform: translateY(0);
   transition: transform 0.6s ease 0.2s;
   opacity: 0;
 }
 
+.envelope-paper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.envelope-paper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+}
+
+.envelope-paper::-webkit-scrollbar-thumb {
+  background: rgba(232, 180, 248, 0.45);
+  border-radius: 999px;
+}
+
 .letter-content p {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text-secondary);
-  margin-bottom: 10px;
-  line-height: 1.7;
+  margin-bottom: 14px;
+  line-height: 1.85;
   font-style: italic;
 }
 
@@ -863,8 +880,9 @@ h1, h2, h3 {
 }
 
 .envelope.open .envelope-paper {
-  transform: translateY(-60px);
+  transform: translateY(-92px);
   opacity: 1;
+  overflow-y: auto;
 }
 
 .envelope.open .envelope-front {
@@ -1065,12 +1083,12 @@ h1, h2, h3 {
   .reason-star .star-icon { font-size: 1.6rem; }
 
   .envelope {
-    width: 280px;
-    height: 190px;
+    width: min(92vw, 420px);
+    height: 320px;
   }
 
-  .envelope-paper { padding: 18px 14px; }
-  .letter-content p { font-size: 0.78rem; }
+  .envelope-paper { padding: 28px 24px; }
+  .letter-content p { font-size: 0.95rem; }
 
   .final-main { font-size: 1.6rem; }
 
