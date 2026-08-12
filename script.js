@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const pageState = getStoredState();
   const pageToken = localStorage.getItem(pageTokenKey) || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+  let resetAppOnReload = false;
   localStorage.setItem(pageTokenKey, pageToken);
 
   function savePageState(nextState = {}) {
@@ -26,15 +27,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
+  function clearPageState() {
+    localStorage.removeItem(pageStateKey);
+    localStorage.removeItem(pageTokenKey);
+  }
+
+  function requestPageFullscreen() {
+    if (document.fullscreenElement) return;
+    document.documentElement.requestFullscreen?.().catch(() => {});
+  }
+
+  requestPageFullscreen();
+  window.addEventListener('pointerdown', requestPageFullscreen, { once: true });
+  window.addEventListener('keydown', requestPageFullscreen, { once: true });
+
   window.addEventListener('beforeunload', (e) => {
-    savePageState({ scrollY: window.scrollY });
-    e.preventDefault();
-    e.returnValue = '';
+    if (resetAppOnReload) {
+      clearPageState();
+      return;
+    }
+
+    const closeAttempts = (Number(getStoredState().closeAttempts) || 0) + 1;
+    savePageState({ closeAttempts, scrollY: window.scrollY });
+
+    if (closeAttempts < 5) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
   });
 
   window.addEventListener('keydown', (e) => {
     const isRefreshKey = e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'r');
-    if (isRefreshKey) {
+    if (isRefreshKey && !resetAppOnReload) {
       e.preventDefault();
     }
   });
@@ -248,7 +272,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function showYesResponse(sendEmail = true) {
     finalQuestion.style.display = 'none';
     finalYesResponse.classList.add('active');
-    savePageState({ finalAnswer: 'Yes' });
+    resetTimeButton();
+    resetAppOnReload = true;
+    clearPageState();
 
     if (sendEmail) {
       sendFinalAnswer('Yes', emailStatusYes);
@@ -271,6 +297,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let timeButtonDodgeCount = Number(pageState.timeButtonDodgeCount) || 0;
   let timeButtonX = Number(pageState.timeButtonX) || 0;
   let timeButtonY = Number(pageState.timeButtonY) || 0;
+
+  function resetTimeButton() {
+    timeButtonDodgeCount = 0;
+    timeButtonX = 0;
+    timeButtonY = 0;
+    btnTime.style.visibility = 'visible';
+    btnTime.style.pointerEvents = '';
+    renderTimeButton();
+  }
 
   function renderTimeButton() {
     const scale = Math.max(0, 1 - timeButtonDodgeCount * 0.1);
@@ -306,10 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
   btnTime.addEventListener('click', (e) => {
     e.preventDefault();
   });
-
-  if (pageState.finalAnswer === 'Yes') {
-    showYesResponse(false);
-  }
 
   // ---- CONFETTI ----
   function launchConfetti() {
