@@ -3,6 +3,41 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  const pageStateKey = 'little-universe-state';
+  const pageTokenKey = 'little-universe-token';
+
+  function getStoredState() {
+    try {
+      return JSON.parse(localStorage.getItem(pageStateKey)) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  const pageState = getStoredState();
+  const pageToken = localStorage.getItem(pageTokenKey) || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
+  localStorage.setItem(pageTokenKey, pageToken);
+
+  function savePageState(nextState = {}) {
+    localStorage.setItem(pageStateKey, JSON.stringify({
+      ...getStoredState(),
+      ...nextState,
+      token: pageToken,
+    }));
+  }
+
+  window.addEventListener('beforeunload', (e) => {
+    savePageState({ scrollY: window.scrollY });
+    e.preventDefault();
+    e.returnValue = '';
+  });
+
+  window.addEventListener('keydown', (e) => {
+    const isRefreshKey = e.key === 'F5' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'r');
+    if (isRefreshKey) {
+      e.preventDefault();
+    }
+  });
 
   // ---- BACKGROUND STARS ----
   const starsContainer = document.getElementById('stars-container');
@@ -210,10 +245,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  btnYes.addEventListener('click', () => {
+  function showYesResponse(sendEmail = true) {
     finalQuestion.style.display = 'none';
     finalYesResponse.classList.add('active');
-    sendFinalAnswer('Yes', emailStatusYes);
+    savePageState({ finalAnswer: 'Yes' });
+
+    if (sendEmail) {
+      sendFinalAnswer('Yes', emailStatusYes);
+    }
 
     // Trigger confetti
     launchConfetti();
@@ -223,16 +262,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create floating hearts
     createFloatingHearts();
+  }
+
+  btnYes.addEventListener('click', () => {
+    showYesResponse(true);
   });
 
-  btnTime.addEventListener('click', () => {
-    finalQuestion.style.display = 'none';
-    finalTimeResponse.classList.add('active');
-    sendFinalAnswer('I Need Time', emailStatusTime);
+  let timeButtonDodgeCount = Number(pageState.timeButtonDodgeCount) || 0;
+  let timeButtonX = Number(pageState.timeButtonX) || 0;
+  let timeButtonY = Number(pageState.timeButtonY) || 0;
 
-    // Gentle animation
-    createGentleStars();
+  function renderTimeButton() {
+    const scale = Math.max(0, 1 - timeButtonDodgeCount * 0.1);
+    const opacity = Math.max(0, 1 - timeButtonDodgeCount * 0.1);
+    btnTime.style.transform = `translate(${timeButtonX}px, ${timeButtonY}px) scale(${scale})`;
+    btnTime.style.opacity = opacity;
+
+    if (timeButtonDodgeCount >= 10) {
+      btnTime.style.visibility = 'hidden';
+      btnTime.style.pointerEvents = 'none';
+    }
+  }
+
+  function moveTimeButton(countAttempt = true) {
+    if (countAttempt) {
+      timeButtonDodgeCount += 1;
+    }
+
+    timeButtonX = Math.round((Math.random() * 2 - 1) * 140);
+    timeButtonY = Math.round((Math.random() * 2 - 1) * 90);
+    renderTimeButton();
+    savePageState({ timeButtonDodgeCount, timeButtonX, timeButtonY });
+  }
+
+  btnTime.setAttribute('aria-disabled', 'true');
+  btnTime.setAttribute('tabindex', '-1');
+  renderTimeButton();
+  btnTime.addEventListener('pointerenter', () => moveTimeButton(true));
+  btnTime.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    moveTimeButton(true);
   });
+  btnTime.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+
+  if (pageState.finalAnswer === 'Yes') {
+    showYesResponse(false);
+  }
 
   // ---- CONFETTI ----
   function launchConfetti() {
@@ -393,6 +470,10 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('visible');
       }
     });
+
+    if (typeof pageState.scrollY === 'number') {
+      window.scrollTo(0, pageState.scrollY);
+    }
   }, 100);
 
 });
