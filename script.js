@@ -6,20 +6,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- BACKGROUND STARS ----
   const starsContainer = document.getElementById('stars-container');
-  const starCount = 180;
+  const starCount = 320;
 
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement('div');
     star.classList.add('bg-star');
-    const size = Math.random() * 2.5 + 0.5;
+    const size = Math.random() * 3.4 + 0.8;
+    const colors = ['#ffffff', '#fff3c4', '#e8b4f8', '#dbe8ff'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
     star.style.width = size + 'px';
     star.style.height = size + 'px';
     star.style.left = Math.random() * 100 + '%';
     star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--star-color', color);
+    star.style.setProperty('--star-glow', (Math.random() * 12 + 6) + 'px');
+    star.style.setProperty('--spark-width', (Math.random() * 14 + 7) + 'px');
+    star.style.setProperty('--spark-opacity', Math.random() > 0.68 ? '0.65' : '0');
     star.style.setProperty('--tw-dur', (Math.random() * 4 + 2) + 's');
     star.style.setProperty('--tw-delay', (Math.random() * 5) + 's');
+    star.style.setProperty('--drift-dur', (Math.random() * 18 + 14) + 's');
+    star.style.setProperty('--drift-x', (Math.random() * 24 - 12) + 'px');
+    star.style.setProperty('--drift-y', (Math.random() * -18 - 6) + 'px');
     starsContainer.appendChild(star);
   }
+
+  // ---- GOLD CURSOR GLOW ----
+  const cursorGlow = document.getElementById('cursor-glow');
+  let pointerX = window.innerWidth / 2;
+  let pointerY = window.innerHeight / 2;
+  let glowX = pointerX;
+  let glowY = pointerY;
+
+  window.addEventListener('pointermove', (e) => {
+    pointerX = e.clientX;
+    pointerY = e.clientY;
+    cursorGlow.style.opacity = '1';
+  });
+
+  window.addEventListener('pointerleave', () => {
+    cursorGlow.style.opacity = '0';
+  });
+
+  function animateCursorGlow() {
+    glowX += (pointerX - glowX) * 0.16;
+    glowY += (pointerY - glowY) * 0.16;
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top = glowY + 'px';
+    cursorGlow.style.transform = 'translate3d(-50%, -50%, 0) scale(1)';
+    requestAnimationFrame(animateCursorGlow);
+  }
+
+  animateCursorGlow();
 
   // ---- FLOATING PARTICLES ----
   const particlesContainer = document.getElementById('particles-container');
@@ -335,8 +372,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Randomize shooting star timing periodically
   setInterval(() => {
     const stars = document.querySelectorAll('.shooting-star');
-    stars.forEach(s => {
-      s.style.top = (Math.random() * 60 + 5) + '%';
+    stars.forEach((s, index) => {
+      s.style.left = (Math.random() * 80 + 4) + '%';
+      s.style.animationDelay = (index * 2 + Math.random() * 4) + 's';
     });
   }, 12000);
 
